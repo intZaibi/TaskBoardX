@@ -1,0 +1,35 @@
+{
+    "users": [
+        { "id": 1, "email": "alice@example.com", "role": "admin", "token": "token-admin" },
+        { "id": 2, "email": "bob@example.com",   "role": "user",  "token": "token-user"  },
+        { "id": 3, "email": "eve@example.com",   "role": "user",  "token": "token-eve"   }
+    ],
+    "courses": [
+        { "id": 1, "title": "React Basics",       "progress": 25, "ownerId": 1 },
+        { "id": 2, "title": "Node.js Deep Dive",  "progress": 75, "ownerId": 2 },
+        { "id": 3, "title": "Next.js SSR",        "progress": 50, "ownerId": 3 },
+        { "id": 4, "title": "Laravel Essentials", "progress":  0, "ownerId": 2 }
+    ],
+    "projects": [
+        { "id": 101, "name": "Website Redesign",    "status": "in-progress", "ownerId": 1 },
+        { "id": 102, "name": "Mobile App Launch",   "status": "pending",     "ownerId": 2 },
+        { "id": 103, "name": "E-commerce Platform", "status": "done",        "ownerId": 1 },
+        { "id": 104, "name": "Internal Dashboard",  "status": "pending",     "ownerId": 3 }
+    ],
+    "notifications": [
+        {
+        "id": 1,
+        "userId": 1,
+        "type": "comment",
+        "payload": "New comment on Course #1",
+        "createdAt": "2025-06-30T12:00:00Z"
+        },
+        {
+        "id": 2,
+        "userId": 2,
+        "type": "project",
+        "payload": "Project #102 status changed",
+        "createdAt": "2025-06-29T15:30:00Z"
+        }
+    ]
+}  
