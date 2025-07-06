@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   req.db = db;
   next();
 });
-// app.use(auth);
+app.use(auth);
 
 app.use('/user', coursesRoute);
 app.use('/auth', authRoute);

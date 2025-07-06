@@ -5,7 +5,6 @@ require('dotenv').config();
 
 const login = async (req, res) => {
   const { email } = req.body;
-  console.log(req.body)
 
   // Validate required fields
   if (!email) {
@@ -51,34 +50,25 @@ const login = async (req, res) => {
 
 
 const refresh = async (req, res) => {
-  const token = req.cookies && req.cookies.authToken ? req.cookies.authToken : req.headers?.authorization?.startsWith('Bearer ') ? req.headers?.authorization?.slice(7) : '';
-
-  if (!token) return res.status(401).json({ error: 'Unauthorized' });
-
-  const decoded = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err && err.message.includes('expired')) return res.clearCookie('authToken').status(403).json({ message: 'Token expired!' });
-    else if (err) return res.status(403).json({ message: 'Token verification failed' });
-    return decoded;
-  });
-  
   // If db is not accessable 
   if (req.db == undefined) 
     return res.status(500).json({ message: "Something went wrong!" });
 
   // Fetch user from db
-  const dbToken = req.db.users?.find((user)=>user.token === token);
-  if (!dbToken) {
-    return res.clearCookie('authToken').status(403).json({ message: "Token is not verified!" });
+  const user = req.db.users?.find((user)=>user.token === req.token);
+  if (!user) {
+    return res.clearCookie('authToken').status(401).json({ message: "Unauthorized! Token is not valid!" });
   }
 
   // Generate JWT
   const newToken = jwt.sign(
-    {userId: decoded.userId, role: decoded.role},
+    {userId: user.id, role: user.role},
     process.env.JWT_SECRET || "enc",
-    { expiresIn: '1s' }
+    { expiresIn: '1h' }
   );
 
-  const index = req.db.users.findIndex((user)=>user.token === token)
+  // updating DB for token
+  const index = req.db.users.findIndex((user)=>user.token === req.token)
   req.db.users[index].token = newToken;
   try {
     fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
@@ -100,22 +90,18 @@ const refresh = async (req, res) => {
 
 
 const logout = (req, res) => {
-  const token = req.cookies && req.cookies.authToken ? req.cookies.authToken : req.headers?.authorization?.startsWith('Bearer ') ? req.headers?.authorization?.slice(7) : '';
-
-  if (!token) return res.status(403).json({ error: 'Unauthorized' });
-
   // If db is not accessable 
   if (req.db == undefined) 
     return res.status(500).json({ message: "Something went wrong!" });
 
   // Fetch user from db
-  const dbToken = req.db.users?.find((user)=>user.token === token);
-  if (!dbToken) {
-    res.clearCookie('authToken').status(403).json({ message: "Token is not verified!" });
+  const user = req.db.users?.find((user)=>user.token === req.token);
+  if (!user) {
+    res.clearCookie('authToken').status(401).json({ message: "Unauthorized! Token is not valid!" });
     return
   }
   
-  const index = req.db.users.findIndex((user)=>user.token=== token)
+  const index = req.db.users.findIndex((user)=>user.token=== req.token)
   req.db.users[index].token = '';
   try {
     fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
