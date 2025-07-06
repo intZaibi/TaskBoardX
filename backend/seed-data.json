@@ -4,7 +4,7 @@
       "id": 1,
       "email": "alice@example.com",
       "role": "admin",
-      "token": "token-admin"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MTgxMjc0OCwiZXhwIjoxNzUxODE2MzQ4fQ.-KE_8rciepM20nrlWgb4vNdAaxWCL9GMEFNHkEo5V0U"
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@
       "id": 3,
       "email": "eve@example.com",
       "role": "user",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUxNzk0NTcwLCJleHAiOjE3NTE3OTgxNzB9.UihH-7Fqocz8yi86Vlwj5cF39ir_-MzbPAoP9YqxFUg"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUxODEyNzgzLCJleHAiOjE3NTE4MTYzODN9.Rnb7BWPeUKb4i68m80qNukrUCJgBdBqdLE9rNq9cdus"
     }
   ],
   "courses": [
@@ -55,13 +55,13 @@
     {
       "id": 101,
       "name": "Website Redesign",
-      "status": "in-progress",
+      "status": "done",
       "ownerId": 1
     },
     {
       "id": 102,
       "name": "Mobile App Launch",
-      "status": "pending",
+      "status": "done",
       "ownerId": 2
     },
     {
@@ -73,7 +73,13 @@
     {
       "id": 104,
       "name": "Internal Dashboard",
-      "status": "pending",
+      "status": "done",
+      "ownerId": 3
+    },
+    {
+      "id": 105,
+      "title": "A New Project",
+      "status": "done",
       "ownerId": 3
     }
   ],

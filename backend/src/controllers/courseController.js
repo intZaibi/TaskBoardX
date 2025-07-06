@@ -1,11 +1,7 @@
 const fs = require('fs');
 const seedPath = './seed-data.json';
 
-const getAllCourses = (req, res) => {
-  return req.user.role === 'admin' ?
-  res.status(200).json(req.db.courses) :
-  res.status(200).json(req.db.courses.filter((course)=>course.ownerId === req.user.id));
-}
+const getAllCourses = (req, res) => res.status(200).json(req.db.courses)
 
 const getCourseById = (req, res) => {
   const id = Number(req.params.id);
