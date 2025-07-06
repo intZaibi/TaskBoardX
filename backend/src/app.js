@@ -4,7 +4,7 @@ const cors = require('cors');
 const auth = require('./middleware/auth');
 const authRoute = require('./routes/auth.js');
 const coursesRoute = require('./routes/courses.js');
-const projectsRoute = require('./routes/projects');
+const projectsRoute = require('./routes/projects.js');
 const notificationsRoute = require('./routes/notifications');
 
 // Load seed data

@@ -43,6 +43,12 @@
       "title": "Laravel Essentials",
       "progress": 0,
       "ownerId": 2
+    },
+    {
+      "id": 5,
+      "title": "A New Course",
+      "progress": 50,
+      "ownerId": 3
     }
   ],
   "projects": [
