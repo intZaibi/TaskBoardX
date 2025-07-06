@@ -16,7 +16,7 @@
       "id": 3,
       "email": "eve@example.com",
       "role": "user",
-      "token": ""
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUxNzk0NTcwLCJleHAiOjE3NTE3OTgxNzB9.UihH-7Fqocz8yi86Vlwj5cF39ir_-MzbPAoP9YqxFUg"
     }
   ],
   "courses": [

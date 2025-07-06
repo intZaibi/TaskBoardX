@@ -4,6 +4,8 @@ module.exports = (req, res, next) => {
   const headers = req.headers.authorization || '';
   const token = headers.startsWith('Bearer ') ? headers.slice(7) : null;
 
+  if (req.path === '/auth/login') return next(); // Bypass auth if requested to login route
+
   if (!token) return res.status(401).json({ error: 'Unauthorized' });
   
   req.token = token;  // attached to match it with the token in db

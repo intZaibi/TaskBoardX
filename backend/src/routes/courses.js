@@ -1,47 +1,49 @@
 const router = require('express').Router();
-const { getCourses, setCourses } = require('../models/dataStore');
+const fs = require('fs');
+const seedPath = './seed-data.json';
 
 router.get('/', (req, res) => {
-  res.json(req.db.courses.filter((course)=>course.ownerId === req.user.id));
+  req.user.role === 'admin' ?
+  res.status(200).json(req.db.courses) :
+  res.status(200).json(req.db.courses.filter((course)=>course.ownerId === req.user.id));
 });
 
 router.get('/:id', (req, res) => {
-  const course = getCourses().find(c => c.id == req.params.id);
-  if (!course) return res.status(404).json({ error: 'Not found' });
-  res.json(course);
+  const course = req.db.courses.find(c => c.id == req.params.id);
+  if (!course) return res.status(404).json({ error: 'Course not found!' });
+  res.status(200).json(course);
 });
 
 router.post('/', (req, res) => {
-  const data = getCourses();
-  const newCourse = { ...req.body, id: Date.now(), ownerId: req.user.id };
-  data.push(newCourse);
-  setCourses(data);
+  const newCourse = { id: (req.db.courses[req.db.courses.length-1].id)+1, ...req.body, ownerId: req.user.id };
+  req.db.courses.push(newCourse);
+  fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
   res.status(201).json(newCourse);
 });
 
 router.patch('/:id', (req, res) => {
-  const data = getCourses();
-  const index = data.findIndex(c => c.id == req.params.id);
+  const index = req.db.courses.findIndex(c => c.id == req.params.id);
   if (index === -1) return res.status(404).json({ error: 'Not found' });
 
-  if (req.user.role !== 'admin' && data[index].ownerId !== req.user.id)
-    return res.status(403).json({ error: 'Forbidden' });
+  if (req.user.role !== 'admin' && req.db.courses[index].ownerId !== req.user.id)
+    return res.status(403).json({ error: 'Forbidden! You do not have access to this course.' });
 
-  data[index] = { ...data[index], ...req.body };
-  setCourses(data);
-  res.json(data[index]);
+  if (req.body.id !== undefined) return res.status(403).json({error: "Course id is immutable"});
+
+  req.db.courses[index] = { ...req.db.courses[index], ...req.body };
+  fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
+  res.json(req.db.courses[index]);
 });
 
 router.delete('/:id', (req, res) => {
-  const data = getCourses();
-  const index = data.findIndex(c => c.id == req.params.id);
+  const index = req.db.courses.findIndex(c => c.id == req.params.id);
   if (index === -1) return res.status(404).json({ error: 'Not found' });
 
-  if (req.user.role !== 'admin' && data[index].ownerId !== req.user.id)
-    return res.status(403).json({ error: 'Forbidden' });
+  if (req.user.role !== 'admin' && req.db.courses[index].ownerId !== req.user.id)
+    return res.status(403).json({ error: 'Forbidden! You do not have access to this course.' });
 
-  const deleted = data.splice(index, 1);
-  setCourses(data);
+  const deleted = req.db.courses.splice(index, 1);
+  fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
   res.json(deleted[0]);
 });
 

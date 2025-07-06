@@ -55,7 +55,7 @@ const refresh = async (req, res) => {
     return res.status(500).json({ message: "Something went wrong!" });
 
   // Fetch user from db
-  const user = req.db.users?.find((user)=>user.token === req.user.token);
+  const user = req.db.users?.find((user)=> user.token === req.user.token);
   if (!user) {
     return res.clearCookie('authToken').status(401).json({ message: "Unauthorized! Token is not valid!" });
   }

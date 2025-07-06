@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const auth = require('./middleware/auth');
 const authRoute = require('./routes/auth.js');
-const coursesRoute = require('./routes/courses');
+const coursesRoute = require('./routes/courses.js');
 const projectsRoute = require('./routes/projects');
 const notificationsRoute = require('./routes/notifications');
 
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 app.use(auth);
 
-app.use('/user', coursesRoute);
+app.use('/courses', coursesRoute);
 app.use('/auth', authRoute);
 app.use('/projects', projectsRoute);
 app.use('/notifications', notificationsRoute);
