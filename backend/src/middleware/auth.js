@@ -6,9 +6,10 @@ module.exports = (req, res, next) => {
 
   if (!token) return res.status(401).json({ error: 'Unauthorized' });
   
-  req.token = token  // attached to match it with the token in db
+  req.token = token;  // attached to match it with the token in db
   try {
-    jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = {id: decoded.userId, role: decoded.role, token};
     next();
   } catch (err) {
     if (err && err.message.includes('expired')) 
