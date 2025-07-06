@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const auth = require('./middleware/auth');
+const authRoute = require('./routes/auth.js');
 const coursesRoute = require('./routes/courses');
 const projectsRoute = require('./routes/projects');
 const notificationsRoute = require('./routes/notifications');
@@ -26,9 +27,10 @@ app.use((req, res, next) => {
   req.db = db;
   next();
 });
-app.use(auth);
+// app.use(auth);
 
 app.use('/user', coursesRoute);
+app.use('/auth', authRoute);
 app.use('/projects', projectsRoute);
 app.use('/notifications', notificationsRoute);
 
