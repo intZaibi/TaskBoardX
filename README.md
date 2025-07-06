@@ -26,14 +26,14 @@ A **backend skeleton** under `backend/` with:
 - Express app in `backend/src/` with stub routes and JWT middleware  
 - `.env.example` with `JWT_SECRET=changeme`  
 - `package.json` scripts:  
-  ```json
+```json
   {
     "scripts": {
       "dev": "nodemon src/app.js",
       "test": "jest --coverage"
     }
   }
-````
+```
 
 Your job is to **extend the backend** and **build a frontend** from scratch.
 

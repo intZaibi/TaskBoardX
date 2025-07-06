@@ -9,13 +9,17 @@ const notificationsRoute = require('./routes/notifications');
 // Load seed data
 const seed = require('../seed-data.json');
 const db = {
-  userCourses: [...seed.userCourses],
-  projects:    [...seed.projects],
+  users: [...seed.users],
+  courses: [...seed.courses],
+  projects: [...seed.projects],
   notifications: [...seed.notifications],
 };
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_BASE_URL, 
+  credentials: true, // Allow credentials (cookies)
+}));
 app.use(express.json());
 app.use((req, res, next) => {
   // attach db to request for routes
