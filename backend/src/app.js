@@ -33,18 +33,6 @@ app.use('/auth', authRoute);
 app.use('/projects', projectsRoute );
 app.use('/notifications', notificationsRoute);
 
+const port = process.env.PORT || 4000;
+app.listen(port, () => console.log(`API listening on ${port}`));
 module.exports = app;
-
-// For local run with Socket.io
-if (require.main === module) {
-  const http = require('http');
-  const { init } = require('./socket/index.js');
-
-  const server = http.createServer(app);
-  init(server); // initialize socket server
-
-  const PORT = process.env.PORT || 4000;
-  server.listen(PORT, () => {
-    console.log(`API & WebSocket server running on port ${PORT}`);
-  });
-}
