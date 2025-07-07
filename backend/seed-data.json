@@ -4,7 +4,7 @@
       "id": 1,
       "email": "alice@example.com",
       "role": "admin",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUxODcwNDI5LCJleHAiOjE3NTE4NzQwMjl9.D8oqC_oIe6kGn1bJcQPc05yCPcNM-90bqlEasfFe3b8"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MTkwMzkxMywiZXhwIjoxNzUxOTA3NTEzfQ.6CbhoMBF9ty5s1cnWbDKX9mu0CJhwd5b4RNa_GWddvE"
     },
     {
       "id": 2,

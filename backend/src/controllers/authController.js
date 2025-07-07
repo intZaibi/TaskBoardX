@@ -50,7 +50,6 @@ const login = async (req, res) => {
 
 
 const refresh = async (req, res) => {
-  console.log("previous token", req.token)
   jwt.verify(req.token, process.env.JWT_SECRET, (err, decoded) => {
     if (err && err.message.includes('expired')) {
       console.log("Token expired!"); // if token is expired then just log it and continue 
@@ -77,8 +76,6 @@ const refresh = async (req, res) => {
     process.env.JWT_SECRET || "enc",
     { expiresIn: '1h' }
   );
-  console.log("sending net token", newToken)
-
 
   // updating DB for token
   const index = req.db.users.findIndex((user)=>user.token == req.token)
