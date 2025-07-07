@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const auth = require('./middleware/auth');
+const auth = require('./middleware/auth.js');
 const authRoute = require('./routes/auth.js');
 const coursesRoute = require('./routes/courses.js');
 const projectsRoute = require('./routes/projects.js');
@@ -23,15 +23,14 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use((req, res, next) => {
-  // attach db to request for routes
-  req.db = db;
+  req.db = db; // attach db to request for routes
   next();
 });
 app.use(auth);
 
 app.use('/courses', coursesRoute);
 app.use('/auth', authRoute);
-app.use('/projects', projectsRoute);
+app.use('/projects', projectsRoute );
 app.use('/notifications', notificationsRoute);
 
 const port = process.env.PORT || 4000;

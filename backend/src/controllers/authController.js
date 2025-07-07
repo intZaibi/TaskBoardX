@@ -16,7 +16,7 @@ const login = async (req, res) => {
   // if db is not accessable 
   if (req.db == undefined) return res.status(500).json({ message: "Something went wrong!" });
 
-  const user = req.db.users?.find((user)=>user.email === email);
+  const user = req.db.users?.find((user)=> user.email == email);
 
   if (!user) return res.status(404).json({ message: "Email not found!" });
 
@@ -27,7 +27,7 @@ const login = async (req, res) => {
     { expiresIn: '1h' }
   );
 
-  const index = req.db.users.findIndex((user)=>user.email===email)
+  const index = req.db.users.findIndex((user)=>user.email==email)
   req.db.users[index].token = token;
   try {
     fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
@@ -50,12 +50,23 @@ const login = async (req, res) => {
 
 
 const refresh = async (req, res) => {
+  console.log("previous token", req.token)
+  jwt.verify(req.token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err && err.message.includes('expired')) {
+      console.log("Token expired!"); // if token is expired then just log it and continue 
+    }
+    else if (err) { // if there is any other error such as secret key mismatch then return
+      console.log(err)
+      return res.status(401).json({ error: 'Unauthorized! Token verification failed.' });
+    }
+  });
+
   // If db is not accessable 
   if (req.db == undefined) 
     return res.status(500).json({ message: "Something went wrong!" });
 
   // Fetch user from db
-  const user = req.db.users?.find((user)=> user.token === req.user.token);
+  const user = req.db.users?.find((user)=> user.token == req.token);
   if (!user) {
     return res.clearCookie('authToken').status(401).json({ message: "Unauthorized! Token is not valid!" });
   }
@@ -66,9 +77,11 @@ const refresh = async (req, res) => {
     process.env.JWT_SECRET || "enc",
     { expiresIn: '1h' }
   );
+  console.log("sending net token", newToken)
+
 
   // updating DB for token
-  const index = req.db.users.findIndex((user)=>user.token === req.user.token)
+  const index = req.db.users.findIndex((user)=>user.token == req.token)
   req.db.users[index].token = newToken;
   try {
     fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
@@ -95,13 +108,13 @@ const logout = (req, res) => {
     return res.status(500).json({ message: "Something went wrong!" });
 
   // Fetch user from db
-  const user = req.db.users?.find((user)=>user.token === req.user.token);
+  const user = req.db.users?.find((user)=>user.token == req.user.token);
   if (!user) {
     res.clearCookie('authToken').status(401).json({ message: "Unauthorized! Token is not valid!" });
     return
   }
   
-  const index = req.db.users.findIndex((user)=>user.token=== req.user.token)
+  const index = req.db.users.findIndex((user)=>user.token== req.user.token)
   req.db.users[index].token = '';
   try {
     fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');

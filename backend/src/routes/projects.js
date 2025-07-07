@@ -11,8 +11,8 @@ const {
 router.get("/", getAllProjects);
 router.get("/:id", getProjectById);
 router.post("/", createProject);
+router.patch("/bulk-status", bulkUpdate);
 router.patch("/:id", updateProject);
 router.delete("/:id", deleteProject);
-router.put("/bulk-status", bulkUpdate);
 
 module.exports = router;
