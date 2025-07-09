@@ -1,12 +1,4 @@
-import React, { use } from "react";
-
-interface Project {
-  id: number;
-  name: string;
-  status: string;
-  ownerId: number;
-  progress: number;
-}
+import { ProjectTypes } from "@/utils/types";
 
 const projects = [
   {
@@ -46,10 +38,7 @@ const projects = [
   }
 ]
 
-
-export default function ProjectTable({projectsPromise, setIds}:{ projectsPromise: Promise<Project[]>, setIds: React.Dispatch<React.SetStateAction<number[]>> }) {
-  const projects = use<Project[]>(projectsPromise);
-
+export default function ProjectTable({setIds, projects=[]}:{ setIds: React.Dispatch<React.SetStateAction<number[]>>; projects: ProjectTypes[]|[] }) {
   return (
     <div className="px-4 py-3 mt-10">
       <h1 className="text-2xl font-bold mb-4 text-[#0d141c]">Projects</h1>
@@ -73,7 +62,7 @@ export default function ProjectTable({projectsPromise, setIds}:{ projectsPromise
             </tr>
           </thead>
           <tbody>
-            {projects ? projects?.map((project)=>(
+            {projects && projects?.length > 0 ? projects?.map((project)=>(
               <tr key={project.id} className="border-t border-t-[#cedae8]">
                 <td className="hidden sm:table-cell h-[72px] px-4 py-2 w-[120px] text-center text-sm font-normal leading-normal">
                   <input
@@ -95,7 +84,7 @@ export default function ProjectTable({projectsPromise, setIds}:{ projectsPromise
                   {project.name}
                 </td>
                 <td className="hidden md:table-cell h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
-                  <span className={`px-3 py-1 rounded-lg ${project.status.toLowerCase() === 'pending' ? 'bg-blue-200' : project.status.toLowerCase() === 'done' ? 'bg-green-200' : 'bg-amber-200'}`}> {project.status}</span>
+                  <span className={`px-3 py-1 rounded-lg ${project.status?.toLowerCase() === 'pending' ? 'bg-blue-200' : project.status.toLowerCase() === 'done' ? 'bg-green-200' : 'bg-amber-200'}`}> {project.status}</span>
                 </td>
                 <td className="hidden lg:table-cell h-[72px] px-4 py-2 w-[400px] text-[#0d141c] text-sm font-normal leading-normal">
                   {project.ownerId}

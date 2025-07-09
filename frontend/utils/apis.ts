@@ -1,32 +1,126 @@
-
 export async function fetchCourses() {
   try {
     const res = await fetch('http://localhost:4000/courses', {
-      headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MTkwMzkxMywiZXhwIjoxNzUxOTA3NTEzfQ.6CbhoMBF9ty5s1cnWbDKX9mu0CJhwd5b4RNa_GWddvE'
-      },
       cache: 'no-store',
     });
-    if (!res.ok) throw new Error('Failed to load courses');
-    return res.json();
+
+    if (!res.ok) {
+      const responseData = await res.json();
+      console.log('status:' + responseData.status + ' error: ' + responseData.error);
+      throw new Error('Failed to fetch courses');
+    }
+    return await res.json();
     
   } catch (error) {
     console.log(error)
+    return [];
   }
 }
 
 export async function fetchProjects() {
+
   try {
     const res = await fetch('http://localhost:4000/projects', {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      console.log(res)
+      const responseData = await res.json();
+      console.log('status:' + responseData.status + ' error: ' + responseData.error);
+      throw new Error(responseData.error || 'Failed to fetch projects');
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
+export const refreshToken = async () => {
+  try {
+    const res = await fetch('http://localhost:4000/auth/refresh', {
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MTkwMzkxMywiZXhwIjoxNzUxOTA3NTEzfQ.6CbhoMBF9ty5s1cnWbDKX9mu0CJhwd5b4RNa_GWddvE'
+        'Authorization': `Bearer ${getCookie('authToken')}`,  // Adjust to your current token retrieval method
       },
       cache: 'no-store',
     });
-    if (!res.ok) throw new Error('Failed to load courses');
-    return res.json();
-    
+
+    if (!res.ok) {
+      throw new Error(`Token refreshing failed with status code: ${res.status}`);
+    }
+    return
   } catch (error) {
-    console.log(error)
+    console.log(error);
+    return null;
+  }
+};
+
+function getCookie(name:string) {
+  const cookieArr = document.cookie.split(';');
+  for (let i = 0; i < cookieArr.length; i++) {
+    let cookie = cookieArr[i].trim();
+    if (cookie.startsWith(name + '=')) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  return null;
+}
+
+export async function fetchProjectById(id: number) {
+  let token = getCookie('authToken');
+
+  if (!token) {
+    console.log('No token found in cookies');
+    return null;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:4000/projects/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to load project');
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function updateProject(id: number, data: any) {
+  let token = getCookie('authToken');
+
+  if (!token) {
+    console.log('No token found in cookies');
+    return null;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:4000/projects/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to update project');
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 }

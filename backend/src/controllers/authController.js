@@ -10,15 +10,15 @@ const login = async (req, res) => {
   if (!email) {
     return res
       .status(400)
-      .json({ message: "Please provide your email." });
+      .json({ error: "Please provide your email." });
   }
   
   // if db is not accessable 
-  if (req.db == undefined) return res.status(500).json({ message: "Something went wrong!" });
+  if (req.db == undefined) return res.status(500).json({ error: "Something went wrong!" });
 
   const user = req.db.users?.find((user)=> user.email == email);
 
-  if (!user) return res.status(404).json({ message: "Email not found!" });
+  if (!user) return res.status(404).json({ error: "Email not found!" });
 
   // Generate JWT
   const token = jwt.sign(
@@ -33,7 +33,7 @@ const login = async (req, res) => {
     fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
   } catch (error) {
     console.log('db updation failed!')
-    return res.status(500).json({ message: "Something went wrong!" });
+    return res.status(500).json({ error: "Something went wrong!" });
   }
 
   // Set token as an HTTP-only cookie
@@ -51,7 +51,7 @@ const login = async (req, res) => {
 
 const refresh = async (req, res) => {
   jwt.verify(req.token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err && err.message.includes('expired')) {
+    if (err && err.error.includes('expired')) {
       console.log("Token expired!"); // if token is expired then just log it and continue 
     }
     else if (err) { // if there is any other error such as secret key mismatch then return
@@ -62,12 +62,12 @@ const refresh = async (req, res) => {
 
   // If db is not accessable 
   if (req.db == undefined) 
-    return res.status(500).json({ message: "Something went wrong!" });
+    return res.status(500).json({ error: "Something went wrong!" });
 
   // Fetch user from db
   const user = req.db.users?.find((user)=> user.token == req.token);
   if (!user) {
-    return res.clearCookie('authToken').status(401).json({ message: "Unauthorized! Token is not valid!" });
+    return res.clearCookie('authToken').status(401).json({ error: "Unauthorized! Token is not valid!" });
   }
 
   // Generate JWT
@@ -84,7 +84,7 @@ const refresh = async (req, res) => {
     fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
   } catch (error) {
     console.log('db updation failed!')
-    return res.status(500).json({ message: "Something went wrong!" });
+    return res.status(500).json({ error: "Something went wrong!" });
   }
 
   // Set token as an HTTP-only cookie
@@ -102,12 +102,12 @@ const refresh = async (req, res) => {
 const logout = (req, res) => {
   // If db is not accessable 
   if (req.db == undefined) 
-    return res.status(500).json({ message: "Something went wrong!" });
+    return res.status(500).json({ error: "Something went wrong!" });
 
   // Fetch user from db
   const user = req.db.users?.find((user)=>user.token == req.user.token);
   if (!user) {
-    res.clearCookie('authToken').status(401).json({ message: "Unauthorized! Token is not valid!" });
+    res.clearCookie('authToken').status(401).json({ error: "Unauthorized! Token is not valid!" });
     return
   }
   
@@ -117,7 +117,7 @@ const logout = (req, res) => {
     fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
   } catch (error) {
     console.log('db updation failed!')
-    return res.status(500).json({ message: "Something went wrong!" });
+    return res.status(500).json({ error: "Something went wrong!" });
   }
 
   return res.clearCookie('authToken').status(200).json({message: 'Logged out successfully'});

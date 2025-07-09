@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const auth = require('./middleware/auth.js');
 const authRoute = require('./routes/auth.js');
 const coursesRoute = require('./routes/courses.js');
@@ -16,9 +17,11 @@ const db = {
   notifications: [...seed.notifications],
 };
 
+
 const app = express();
+app.use(cookieParser());
 app.use(cors({
-  origin: process.env.FRONTEND_BASE_URL, 
+  origin: "http://localhost:3000", 
   credentials: true, // Allow credentials (cookies)
 }));
 app.use(express.json());

@@ -1,30 +1,50 @@
-'use client';
+"use client";
 
-import { createContext, useEffect, useState } from 'react';
+import { fetchCourses, fetchProjects } from "@/utils/apis";
+import { CourseTypes, ProjectTypes } from "@/utils/types";
+import { createContext, useEffect, useState } from "react";
 
 export const Context = createContext<{
-  tasks: Task[];
-  // setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  courses: CourseTypes[] | [];
+  projects: ProjectTypes[] | [];
+  setCourses: React.Dispatch<React.SetStateAction<CourseTypes[]>>;
+  setProjects: React.Dispatch<React.SetStateAction<ProjectTypes[]>>;
 }>({
-  tasks: [],
-  // setTasks: () => [],
+  courses: [],
+  projects: [],
+  setCourses: () => [],
+  setProjects: () => [],
 });
 
-export const ContextProvider = ({ children }: { children : React.ReactNode }) => {
-  const [tasks, setTasks] = useState([]);
+export const ContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [courses, setCourses] = useState<CourseTypes[]>([]);
+  const [projects, setProjects] = useState<ProjectTypes[]>([]);
 
-  // useEffect(() => {
+  const setCoursesData = async ()=>{
+    const res = await fetchCourses();
+    setCourses(res)
+  }
+  const setProjectsData = async ()=>{
+    const res = await fetchProjects();
+    setProjects(res)
+  }
 
-  //   // Cleanup listeners on unmount
-  //   return () => {
-  //   };
-  // }, []);
+  useEffect(() => {
+    setCoursesData();
+    setProjectsData();
+  }, []);
 
   return (
     <Context.Provider
       value={{
-        tasks,
-        // setTasks
+        courses,
+        projects,
+        setCourses,
+        setProjects,
       }}
     >
       {children}
