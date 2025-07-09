@@ -121,7 +121,7 @@ const bulkUpdate = (req, res) => {
   }
 
   if (!Array.isArray(ids) || ids.length === 0) {  // validating ids if it is array and has length > 0 or not
-    return res.status(400).json({ error: "Request must include an array of project IDs." });
+    return res.status(400).json({ error: "Request must include an array of atleast 1 project IDs." });
   }
 
   const updatedProjects = [];
