@@ -1,8 +1,16 @@
-const router = require('express').Router();
+const router = require("express").Router();
+const {
+  deleteCourse,
+  updateCourse,
+  createCourse,
+  getCourseById,
+  getAllCourses,
+} = require("../controllers/courseController");
 
-// GET /user/courses
-router.get('/courses', (req, res) => {
-  res.json(req.db.courses);
-});
+router.get("/", getAllCourses);
+router.get("/:id", getCourseById);
+router.post("/", createCourse);
+router.patch("/:id", updateCourse);
+router.delete("/:id", deleteCourse);
 
 module.exports = router;

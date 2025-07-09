@@ -4,7 +4,7 @@
       "id": 1,
       "email": "alice@example.com",
       "role": "admin",
-      "token": "token-admin"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUxODcwNDI5LCJleHAiOjE3NTE4NzQwMjl9.D8oqC_oIe6kGn1bJcQPc05yCPcNM-90bqlEasfFe3b8"
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@
       "id": 3,
       "email": "eve@example.com",
       "role": "user",
-      "token": ""
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUxODY5NDk2LCJleHAiOjE3NTE4NzMwOTZ9._U04XXgA0QPwTACNFaS1waOKQrO0zau_btQxv8jTrG4"
     }
   ],
   "courses": [
@@ -43,19 +43,49 @@
       "title": "Laravel Essentials",
       "progress": 0,
       "ownerId": 2
+    },
+    {
+      "id": 5,
+      "title": "A New Course",
+      "progress": 50,
+      "ownerId": 3
+    },
+    {
+      "title": "Another New Course",
+      "progress": 0,
+      "id": 6,
+      "ownerId": 3
+    },
+    {
+      "id": 7,
+      "title": "JavaScript Essentials",
+      "progress": 0,
+      "ownerId": 3
+    },
+    {
+      "id": 8,
+      "title": "React Advanced",
+      "progress": 0,
+      "ownerId": 3
+    },
+    {
+      "id": 9,
+      "title": "JavaScript Essentials",
+      "progress": 0,
+      "ownerId": 3
     }
   ],
   "projects": [
     {
       "id": 101,
       "name": "Website Redesign",
-      "status": "in-progress",
+      "status": "done",
       "ownerId": 1
     },
     {
       "id": 102,
       "name": "Mobile App Launch",
-      "status": "pending",
+      "status": "done",
       "ownerId": 2
     },
     {
@@ -67,6 +97,42 @@
     {
       "id": 104,
       "name": "Internal Dashboard",
+      "status": "done",
+      "ownerId": 3
+    },
+    {
+      "id": 105,
+      "name": "A New Project",
+      "status": "done",
+      "ownerId": 3
+    },
+    {
+      "id": 106,
+      "name": "Backend Refactor",
+      "status": "todo",
+      "ownerId": 3
+    },
+    {
+      "id": 107,
+      "name": "New Project",
+      "status": "pending",
+      "ownerId": 3
+    },
+    {
+      "id": 108,
+      "name": "User Project",
+      "status": "pending",
+      "ownerId": 3
+    },
+    {
+      "id": 109,
+      "name": "Backend Refactor",
+      "status": "todo",
+      "ownerId": 3
+    },
+    {
+      "id": 110,
+      "name": "New Project",
       "status": "pending",
       "ownerId": 3
     }
