@@ -1,7 +1,7 @@
 "use client";
 
 import { Context } from "@/app/context/context";
-import { refreshToken } from "@/utils/apis";
+import { refreshToken, sendNotification } from "@/utils/apis";
 import { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -123,9 +123,10 @@ export default function Form({
         }
 
         if (result.updated.length > 0) {
+          
           const updatedIds = result.updated
-            .map((item: { id: number }) => `#${item.id}`)
-            .join(", ");
+          .map((item: { id: number }) => `#${item.id}`)
+          .join(", ");
           toast.success(`ID: ${updatedIds} updated successfully!`, {
             position: "top-right",
             autoClose: 5000,
@@ -135,6 +136,10 @@ export default function Form({
             draggable: true,
             progress: undefined,
           });
+          const uniqueOwners = [...new Set(projects.filter(p => updatedIds.includes(p.id)).map(p => p.ownerId))];
+          for (const ownerId of uniqueOwners) {
+            await sendNotification(ownerId, `Admin updated your project(s) status.`);
+          }
         }
       }
     } catch (err) {

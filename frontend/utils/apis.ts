@@ -124,3 +124,15 @@ export async function updateProject(id: number, data: any) {
     return null;
   }
 }
+
+
+export async function sendNotification(userId: number, message: string) {
+  return fetch('http://localhost:4000/notifications', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include', 
+    body: JSON.stringify({ userId, message }),
+  });
+}

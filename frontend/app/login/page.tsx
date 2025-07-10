@@ -1,12 +1,14 @@
 'use client'
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from 'next/navigation';
+import { Context } from "../context/context";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
+  const {setUser} = useContext(Context);
 
-  const router = useRouter();
+  const redirect = useRouter();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
@@ -36,8 +38,19 @@ export default function Login() {
       pauseOnHover: true,
       draggable: true,
     });
-    
-    router.push('./projects');
+    res.json().then((data) => {
+      const user = data.user;
+      if (!user || !user.userId) {
+        throw new Error("Invalid user data received");
+      }
+      console.log(user)
+      setUser(user);
+    }).catch(() => {
+      console.log("Error parsing user data from response");
+      throw new Error("user data not found in response");
+    });
+
+    redirect.push('/');
 
   } catch (error: any) {
     console.log("Login error:", error);

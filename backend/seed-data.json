@@ -4,7 +4,7 @@
       "id": 1,
       "email": "alice@example.com",
       "role": "admin",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjA2ODg2MiwiZXhwIjoxNzUyMDcyNDYyfQ.PyTrdkIXkZGatTFXy1bm7PqShmC_AKg4qAAtQ-gZux4"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjE1MTUyMCwiZXhwIjoxNzUyMTU1MTIwfQ.jTTDdsp9p34alRnjWRGRtVJWnIbywvl0GnN3VRzbIio"
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@
       "id": 3,
       "email": "eve@example.com",
       "role": "user",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUyMDY4ODM3LCJleHAiOjE3NTIwNzI0Mzd9.ccgv6OunGe_xxEMSIN0BviJdg3lt-nbrg1mv0U8A1oU"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUyMTUxNDI4LCJleHAiOjE3NTIxNTUwMjh9.2MLCvR9O-pVWt1_otIQdEnAcd1WLLmrz5-FOV40XD8g"
     }
   ],
   "courses": [
@@ -97,7 +97,7 @@
     {
       "id": 104,
       "name": "Internal Dashboard",
-      "status": "in-progress",
+      "status": "pending",
       "ownerId": 3
     },
     {
@@ -115,7 +115,7 @@
     {
       "id": 107,
       "name": "New Project",
-      "status": "pending",
+      "status": "in-progress",
       "ownerId": 3
     },
     {
@@ -127,7 +127,7 @@
     {
       "id": 109,
       "name": "Backend Refactor",
-      "status": "done",
+      "status": "pending",
       "ownerId": 3
     },
     {

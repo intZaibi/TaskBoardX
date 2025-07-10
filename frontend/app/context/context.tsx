@@ -1,7 +1,7 @@
 "use client";
 
 import { fetchCourses, fetchProjects } from "@/utils/apis";
-import { CourseTypes, ProjectTypes } from "@/utils/types";
+import { CourseTypes, ProjectTypes, UserTypes } from "@/utils/types";
 import { createContext, useEffect, useState } from "react";
 
 export const Context = createContext<{
@@ -9,11 +9,15 @@ export const Context = createContext<{
   projects: ProjectTypes[] | [];
   setCourses: React.Dispatch<React.SetStateAction<CourseTypes[]>>;
   setProjects: React.Dispatch<React.SetStateAction<ProjectTypes[]>>;
+  user: UserTypes | null;
+  setUser: React.Dispatch<React.SetStateAction<UserTypes | null>>;
 }>({
   courses: [],
   projects: [],
   setCourses: () => [],
   setProjects: () => [],
+  user: null,
+  setUser: () => null,
 });
 
 export const ContextProvider = ({
@@ -23,6 +27,7 @@ export const ContextProvider = ({
 }) => {
   const [courses, setCourses] = useState<CourseTypes[]>([]);
   const [projects, setProjects] = useState<ProjectTypes[]>([]);
+  const [user, setUser] = useState<UserTypes | null>(null);
 
   const setCoursesData = async ()=>{
     const res = await fetchCourses();
@@ -45,6 +50,8 @@ export const ContextProvider = ({
         projects,
         setCourses,
         setProjects,
+        user,
+        setUser
       }}
     >
       {children}

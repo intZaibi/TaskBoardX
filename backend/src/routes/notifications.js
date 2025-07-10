@@ -14,7 +14,7 @@ const router = require('express').Router();
 router.post('/', (req, res) => {
   const { message, userId } = req.body;
   if (!message || !userId) return res.status(400).json({ error: 'Missing data' });
-  const notes = req.body.notifications;
+  const notes = req.db.notifications;
 
   const newNote = {
     id: (notes[notes.length-1].id)+1,
@@ -24,13 +24,13 @@ router.post('/', (req, res) => {
     timestamp: new Date().toISOString()
   };
 
-  notes.push(newNote);
-  req.db.notifications.push(notes);
+  // notes.push(newNote);
+  // req.db.notifications.push(notes);
 
-  fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
+  // fs.writeFileSync(seedPath, JSON.stringify(req.db, null, 2), 'utf-8');
 
   // Emit to user's room
-  getIO().of('/notify').to(`${userId}`).emit('notification', newNote);
+  getIO().of('/notify').to(`${userId}`).emit('notification', message);
 
   res.status(201).json(newNote);
 });

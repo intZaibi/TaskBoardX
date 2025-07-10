@@ -44,7 +44,7 @@ const login = async (req, res) => {
     maxAge: 60 * 60 * 1000,
   });
 
-  res.status(200).json({token});
+  res.status(200).json({user: { userId: user.id, role: user.role }});
 };
 
 
@@ -123,4 +123,19 @@ const logout = (req, res) => {
   return res.clearCookie('authToken').status(200).json({message: 'Logged out successfully'});
 }
 
-module.exports = {login, refresh, logout}
+
+const getUser = (req, res) => {
+  // If db is not accessable 
+  if (req.db == undefined) 
+    return res.status(500).json({ error: "Something went wrong!" });
+
+  // Fetch user from db
+  const user = req.db.users?.find((user)=>user.token == req.user.token);
+  if (!user) {
+    return res.status(401).json({ error: "Unauthorized! Token is not valid!" });
+  }
+
+  res.status(200).json({user: { userId: user.id, role: user.role }});
+}
+
+module.exports = {login, refresh, logout, getUser};

@@ -11,3 +11,8 @@ export type ProjectTypes = {
   status: string;
   ownerId: number;
 }
+
+export type UserTypes = {
+  userId: number;
+  role: string;
+};
