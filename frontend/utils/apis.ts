@@ -1,6 +1,6 @@
 export async function fetchCourses() {
   try {
-    const res = await fetch('http://localhost:4000/courses', {
+    const res = await fetch(`${process.env.API_END_POINT_BASE_URL}/courses`, {
       cache: 'no-store',
     });
 
@@ -20,7 +20,7 @@ export async function fetchCourses() {
 export async function fetchProjects() {
 
   try {
-    const res = await fetch('http://localhost:4000/projects', {
+    const res = await fetch(`${process.env.API_END_POINT_BASE_URL}/projects`, {
       cache: 'no-store',
     });
 
@@ -40,7 +40,7 @@ export async function fetchProjects() {
 
 export const refreshToken = async () => {
   try {
-    const res = await fetch('http://localhost:4000/auth/refresh', {
+    const res = await fetch(`${process.env.API_END_POINT_BASE_URL}/auth/refresh`, {
       headers: {
         'Authorization': `Bearer ${getCookie('authToken')}`,  // Adjust to your current token retrieval method
       },
@@ -77,7 +77,7 @@ export async function fetchProjectById(id: number) {
   }
 
   try {
-    const res = await fetch(`http://localhost:4000/projects/${id}`, {
+    const res = await fetch(`${process.env.API_END_POINT_BASE_URL}/projects/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -104,7 +104,7 @@ export async function updateProject(id: number, data: any) {
   }
 
   try {
-    const res = await fetch(`http://localhost:4000/projects/${id}`, {
+    const res = await fetch(`${process.env.API_END_POINT_BASE_URL}/projects/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ export async function updateProject(id: number, data: any) {
 
 
 export async function sendNotification(userId: number, message: string) {
-  return fetch('http://localhost:4000/notifications', {
+  return fetch(`${process.env.API_END_POINT_BASE_URL}/notifications`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

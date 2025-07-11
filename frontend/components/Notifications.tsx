@@ -13,7 +13,7 @@ const NotificationSocket = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch('http://localhost:4000/auth/get-user', {
+      const response = await fetch(`${process.env.API_END_POINT_BASE_URL}/auth/get-user`, {
         method: 'GET',
         credentials: 'include',
         headers: {
