@@ -27,7 +27,7 @@ function App() {
     <div className="flex flex-col items-center p-6 w-full mx-auto">
       <h1 className="text-2xl font-bold mb-4">📣 Notification Test (User 1)</h1>
 
-      <NotificationSocket userId={sender.id} />
+      <NotificationSocket />
 
       <input
         className="border p-5 w-full mb-2"
