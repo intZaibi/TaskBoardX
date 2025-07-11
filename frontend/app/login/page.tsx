@@ -17,7 +17,7 @@ export default function Login() {
   try {
     const email = event.currentTarget.email.value.trim();
 
-    const res = await fetch(`${process.env.API_END_POINT_BASE_URL}/auth/login`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_END_POINT_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

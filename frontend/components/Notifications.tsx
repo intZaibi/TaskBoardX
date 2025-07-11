@@ -13,7 +13,7 @@ const NotificationSocket = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch(`${process.env.API_END_POINT_BASE_URL}/auth/get-user`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_END_POINT_BASE_URL}/auth/get-user`, {
         method: 'GET',
         credentials: 'include',
         headers: {

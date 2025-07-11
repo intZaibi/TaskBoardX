@@ -57,7 +57,7 @@ export default function Form({
     );
     closeDialog();
     try {
-      const res = await fetch(`${process.env.API_END_POINT_BASE_URL}/projects/bulk-status`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_END_POINT_BASE_URL}/projects/bulk-status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
