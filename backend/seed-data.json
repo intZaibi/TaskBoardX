@@ -4,7 +4,7 @@
       "id": 1,
       "email": "alice@example.com",
       "role": "admin",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjE1MTUyMCwiZXhwIjoxNzUyMTU1MTIwfQ.jTTDdsp9p34alRnjWRGRtVJWnIbywvl0GnN3VRzbIio"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjI0MzQwMiwiZXhwIjoxNzUyMjQ3MDAyfQ.x-td4knOzNzTPKGOwA382cmw-EViBt1A62cJ7nbtJT8"
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@
       "id": 3,
       "email": "eve@example.com",
       "role": "user",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUyMTUxNDI4LCJleHAiOjE3NTIxNTUwMjh9.2MLCvR9O-pVWt1_otIQdEnAcd1WLLmrz5-FOV40XD8g"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzUyMjQzMzczLCJleHAiOjE3NTIyNDY5NzN9.3HZrAOPMfV05kBq0NAGhSyR83pN97DDoQ9X_OU5sISU"
     }
   ],
   "courses": [
@@ -103,7 +103,7 @@
     {
       "id": 105,
       "name": "A New Project",
-      "status": "done",
+      "status": "pending",
       "ownerId": 3
     },
     {
